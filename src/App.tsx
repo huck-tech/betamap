@@ -3,6 +3,7 @@ import "./App.css";
 import Tooltip from "@mui/joy/Tooltip";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
+import BetaMap from "./components/BetaMap/BetaMap";
 
 function App() {
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
@@ -23,7 +24,8 @@ function App() {
 
   return (
     <div className="App" onClick={handleClick}>
-      {showPopup && (
+      <BetaMap />
+      {/* {showPopup && (
         <Tooltip
           open={showTooltip}
           placement="top"
@@ -75,7 +77,7 @@ function App() {
             }}
           />
         </Tooltip>
-      )}
+      )} */}
     </div>
   );
 }
