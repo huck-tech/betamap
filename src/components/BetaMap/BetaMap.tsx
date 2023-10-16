@@ -38,7 +38,8 @@ const BetaMap = () => {
           width: '100%',
           height: '100%',
           backgroundImage: `url(${ImgBetaMap})`,
-          backgroundRepeat: 'no-repeat'
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover'
         }}
         onClick={handleClick}
       >
