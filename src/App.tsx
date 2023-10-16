@@ -1,4 +1,3 @@
-import './App.css';
 import BetaMap from './components/BetaMap/BetaMap';
 
 function App() {

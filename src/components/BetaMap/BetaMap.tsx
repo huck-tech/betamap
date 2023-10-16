@@ -3,15 +3,19 @@ import Box from '@mui/joy/Box';
 import Tooltip from '@mui/joy/Tooltip';
 import Typography from '@mui/joy/Typography';
 import ImgBetaMap from '../../assets/images/betamap.jpg';
+import useScreenSize from '../../hooks/use-screen-size';
 
 const BetaMap = () => {
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const [showPopup, setShowPopup] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const screenSize = useScreenSize();
+
+  console.log('############', screenSize);
 
   const handleClick = (event: React.MouseEvent) => {
     const x = event.clientX;
-    const y = event.clientY;
+    const y = event.clientY + window.scrollY;
     setShowTooltip(false);
 
     setClickPosition({ x, y });
