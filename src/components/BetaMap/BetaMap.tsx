@@ -19,6 +19,7 @@ const BetaMap = () => {
       setShowPopup(true);
     }, 300);
   };
+
   return (
     <Box
       sx={{
