@@ -4,25 +4,24 @@ import Tooltip from '@mui/joy/Tooltip';
 import Typography from '@mui/joy/Typography';
 import ImgBetaMap from '../../assets/images/betamap.jpg';
 import useScreenSize from '../../hooks/use-screen-size';
+import ImgGem1 from '../../assets/images/gem1.png';
+import ImgGem2 from '../../assets/images/gem2.png';
+import ImgGem3 from '../../assets/images/gem3.png';
+import ImgGem4 from '../../assets/images/gem4.png';
+import ImgGem5 from '../../assets/images/gem5.png';
+
+const MOCK_PLACES = [
+  { x: 1288, y: 550, icon: ImgGem1 },
+  { x: 552, y: 560, icon: ImgGem2 },
+  { x: 861, y: 363, icon: ImgGem3 },
+  { x: 718, y: 711, icon: ImgGem4 },
+  { x: 1072, y: 548, icon: ImgGem5 }
+];
 
 const BetaMap = () => {
-  const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
-  const [showPopup, setShowPopup] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
   const screenSize = useScreenSize();
-
-  console.log('############', screenSize);
-
-  const handleClick = (event: React.MouseEvent) => {
-    const x = event.clientX;
-    const y = event.clientY + window.scrollY;
-    setShowTooltip(false);
-
-    setClickPosition({ x, y });
-    setTimeout(() => {
-      setShowPopup(true);
-    }, 300);
-  };
+  const [activeGem, setActiveGem] = useState<number | null>(null);
+  const zoomRate = screenSize.width / 1920;
 
   return (
     <Box
@@ -45,11 +44,11 @@ const BetaMap = () => {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover'
         }}
-        onClick={handleClick}
       >
-        {showPopup && (
+        {MOCK_PLACES.map((item, idx) => (
           <Tooltip
-            open={showTooltip}
+            key={idx}
+            open={activeGem === idx}
             placement="top"
             sx={{
               boxShadow: '40px 20px 10px #0000006E',
@@ -72,23 +71,37 @@ const BetaMap = () => {
             }
             arrow
           >
-            <div
-              id="map-selector"
-              onMouseMove={() => setShowTooltip(true)}
-              style={{
-                position: 'absolute',
-                width: '180px',
-                height: '90px',
-                top: clickPosition.y - 45,
-                left: clickPosition.x - 90,
-                borderRadius: '50%',
-                border: '3px solid #FFFFFF',
-                background: '#00A3E0 0% 0% no-repeat padding-box',
-                mixBlendMode: 'soft-light'
-              }}
-            />
+            {activeGem === idx ? (
+              <div
+                id="map-selector"
+                style={{
+                  position: 'absolute',
+                  width: 180 * zoomRate,
+                  height: 90 * zoomRate,
+                  top: (item.y - 45) * zoomRate,
+                  left: (item.x - 90) * zoomRate,
+                  borderRadius: '50%',
+                  border: '3px solid #FFFFFF',
+                  background: '#00A3E0 0% 0% no-repeat padding-box',
+                  mixBlendMode: 'soft-light'
+                }}
+              />
+            ) : (
+              <img
+                src={item.icon}
+                style={{
+                  position: 'absolute',
+                  width: 40 * zoomRate,
+                  height: 80 * zoomRate,
+                  top: (item.y - 40) * zoomRate,
+                  left: (item.x - 20) * zoomRate
+                }}
+                className="gem-icon"
+                onClick={() => setActiveGem(idx)}
+              />
+            )}
           </Tooltip>
-        )}
+        ))}
       </Box>
     </Box>
   );

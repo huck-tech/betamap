@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.gem-icon:hover {
+  filter: drop-shadow(5px 10px 15px #fff);
+}
