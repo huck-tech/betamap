@@ -55,7 +55,6 @@ const BetaMap = () => {
               border: '2px solid #747474',
               background: '#191919'
             }}
-            followCursor
             enterDelay={100}
             title={
               <Box p={1}>
