@@ -1,4 +1,3 @@
-import { GlobalStyles } from '@mui/joy';
 import { extendTheme } from '@mui/joy/styles';
 
 const theme = extendTheme({
@@ -11,7 +10,5 @@ const theme = extendTheme({
     }
   }
 });
-
-export const globalStyles = <GlobalStyles styles={{}} />;
 
 export default theme;
