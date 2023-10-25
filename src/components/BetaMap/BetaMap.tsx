@@ -1,26 +1,23 @@
 // import { useState } from 'react';
 import Box from '@mui/joy/Box';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
+import { styled } from '@mui/joy';
+import LogoView from '../LogoView';
+import FeatureCard from '../FeatureCard';
 import ImgBetaMap from '../../assets/images/betamap.jpg';
 import useScreenSize from '../../hooks/use-screen-size';
 import ImgGem5 from '../../assets/images/gem5.png';
-import { styled } from '@mui/joy';
+import { CONTENT } from './constant';
 
 const Image = styled('img')({
-  position: 'absolute',
   width: 80,
   aspectRatio: 240 / 355,
+  transition: 'all 0.5s ease-in-out',
   '&:hover': {
     filter: 'drop-shadow(0 0 2px #fff)'
   }
 });
-
-const MOCK_PLACES = [
-  { x: 1288, y: 550, icon: ImgGem5 },
-  { x: 552, y: 560, icon: ImgGem5 },
-  { x: 861, y: 363, icon: ImgGem5 },
-  { x: 718, y: 711, icon: ImgGem5 },
-  { x: 1072, y: 548, icon: ImgGem5 }
-];
 
 const BetaMap = () => {
   const screenSize = useScreenSize();
@@ -30,36 +27,54 @@ const BetaMap = () => {
   return (
     <Box
       sx={{
-        width: '100%',
-        height: 0,
-        paddingTop: '56.25%',
-        position: 'relative',
-        overflow: 'hidden'
+        backgroundImage: `url(${ImgBetaMap})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center -100px',
+        px: 9,
+        pb: 9
       }}
     >
       <Box
         sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
           width: '100%',
-          height: '100%',
-          backgroundImage: `url(${ImgBetaMap})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover'
+          height: 0,
+          paddingTop: '50%',
+          position: 'relative'
         }}
       >
-        {MOCK_PLACES.map((item, idx) => (
-          <Image
+        {CONTENT.map((item, idx) => (
+          <Stack
             key={idx}
-            src={item.icon}
-            style={{
-              top: item.y * zoomRate,
-              left: item.x * zoomRate
-            }}
-          />
+            alignItems="center"
+            sx={{ position: 'absolute', top: item.y * zoomRate, left: item.x * zoomRate }}
+          >
+            <Typography
+              level="title-lg"
+              color="primary"
+              sx={(theme) => ({
+                backgroundColor: theme.palette.background.body,
+                mb: 1,
+                px: 2,
+                py: 1,
+                lineHeight: '17px',
+                borderRadius: 10
+              })}
+            >
+              {item.name}
+            </Typography>
+            <Image src={ImgGem5} alt={item.name} />
+          </Stack>
         ))}
       </Box>
+      <Stack direction="row" justifyContent="space-between" columnGap={2}>
+        <LogoView />
+        <Stack direction="row" flexWrap="wrap" gap={2}>
+          {CONTENT.map((item) => (
+            <FeatureCard key={item.name} title={item.name} description={item.shortText} />
+          ))}
+        </Stack>
+      </Stack>
     </Box>
   );
 };
